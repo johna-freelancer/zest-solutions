@@ -51,11 +51,13 @@ export function Navbar() {
             transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.1 }}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <img
-              src={logo}
-              alt="Zest Solutions"
-              className="h-8 w-auto object-contain rounded-sm"
-            />
+            <div className="bg-white/90 p-1.5 rounded-md shadow-[0_6px_20px_rgba(0,0,0,0.25)]">
+              <img
+                src={logo}
+                alt="Zest Solutions"
+                className="h-10 md:h-11 w-auto object-contain"
+              />
+            </div>
           </motion.div>
 
           <nav className="hidden md:flex items-center gap-8">

@@ -47,11 +47,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <img
-                src={logo}
-                alt="Zest Solutions"
-                className="h-8 w-auto object-contain rounded-sm"
-              />
+              <div className="bg-white/90 p-2 rounded-md shadow-[0_6px_20px_rgba(0,0,0,0.25)]">
+                <img
+                  src={logo}
+                  alt="Zest Solutions"
+                  className="h-[7.5rem] w-auto object-contain"
+                />
+              </div>
             </div>
             <p className="text-zinc-400 max-w-sm mb-6">
               Engineering modern management systems and bespoke software solutions
