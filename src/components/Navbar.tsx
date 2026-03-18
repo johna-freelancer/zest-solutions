@@ -7,6 +7,7 @@ import {
   useMotionTemplate,
 } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import logo from '../assets/logo.png'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -51,7 +52,7 @@ export function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img
-              src="https://cdn.magicpatterns.com/uploads/bESVJ33Wsh7UMaHKCu9foY/Gemini_Generated_Image_33034t33034t3303.png"
+              src={logo}
               alt="Zest Solutions"
               className="h-8 w-auto object-contain rounded-sm"
             />

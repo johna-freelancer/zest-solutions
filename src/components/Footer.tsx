@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Twitter, Linkedin, Github } from 'lucide-react'
+import logo from '../assets/logo.png'
 
 export function Footer() {
   const containerVariants = {
@@ -47,7 +48,7 @@ export function Footer() {
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="https://cdn.magicpatterns.com/uploads/bESVJ33Wsh7UMaHKCu9foY/Gemini_Generated_Image_33034t33034t3303.png"
+                src={logo}
                 alt="Zest Solutions"
                 className="h-8 w-auto object-contain rounded-sm"
               />
