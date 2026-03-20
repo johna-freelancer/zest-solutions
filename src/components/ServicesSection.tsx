@@ -4,17 +4,17 @@ import { Database, Cpu, LayoutTemplate, CheckCircle2 } from 'lucide-react'
 const services = [
   {
     icon: Database,
-    title: 'Medical Diagnostic Portals',
+    title: 'HRIS Systems',
     description:
-      'HIPAA-compliant, secure portals for healthcare providers to manage patient data, lab results, and diagnostics efficiently.',
-    features: ['End-to-end encryption', 'HL7/FHIR integration', 'Real-time reporting'],
+      'Centralized human resource information systems that streamline employee records, onboarding, leave, and performance workflows.',
+    features: ['Employee lifecycle management', 'Leave and attendance tracking', 'Role-based access controls'],
   },
   {
     icon: Cpu,
-    title: 'Business Automation',
+    title: 'Payroll Systems',
     description:
-      'Custom workflows that eliminate manual data entry. We connect your disparate systems into one seamless pipeline.',
-    features: ['API integrations', 'Legacy system modernization', 'Custom middleware'],
+      'Accurate and compliant payroll platforms tailored to your policies, including tax rules, deductions, and payout automation.',
+    features: ['Automated salary computation', 'Tax and statutory compliance', 'Payslip and bank file generation'],
   },
   {
     icon: LayoutTemplate,
