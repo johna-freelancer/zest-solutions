@@ -1,27 +1,41 @@
 import { motion } from 'framer-motion'
-import { Database, Cpu, LayoutTemplate, CheckCircle2 } from 'lucide-react'
+import { Database, Cpu, LayoutTemplate, Globe, Sparkles, CheckCircle2 } from 'lucide-react'
 
 const services = [
   {
     icon: Database,
     title: 'HRIS Systems',
     description:
-      'Centralized human resource information systems that streamline employee records, onboarding, leave, and performance workflows.',
-    features: ['Employee lifecycle management', 'Leave and attendance tracking', 'Role-based access controls'],
+      'One place to manage your entire workforce — from hiring to resignation. Keep your team organised and your HR team stress-free.',
+    features: ['Track staff records and contracts', 'Manage leave and attendance in real time', 'Control who sees what in your business'],
   },
   {
     icon: Cpu,
-    title: 'Payroll Systems',
+    title: 'Business Automation',
     description:
-      'Accurate and compliant payroll platforms tailored to your policies, including tax rules, deductions, and payout automation.',
-    features: ['Automated salary computation', 'Tax and statutory compliance', 'Payslip and bank file generation'],
+      'Stop doing the same tasks over and over. We build smart workflows that run in the background so your team can focus on what matters.',
+    features: ['Eliminate repetitive manual work', 'Connect your existing tools together', 'Replace outdated processes with modern ones'],
   },
   {
     icon: LayoutTemplate,
+    title: 'Payroll Systems',
+    description:
+      'Pay your staff accurately and on time, every time. We build payroll systems that handle the numbers so you never have to sweat the details.',
+    features: ['Salaries calculated automatically', 'Always compliant with tax rules', 'Payslips generated and ready to send'],
+  },
+  {
+    icon: Globe,
     title: 'Bespoke Web Applications',
     description:
-      'Tailor-made software solutions built from the ground up to match your exact business requirements and scale.',
-    features: ['Laravel & React stack', 'High-performance architecture', 'Cloud-native deployment'],
+      'Need something that off-the-shelf software can\'t do? We build custom web applications designed exactly around how your business works.',
+    features: ['Built specifically for your business', 'Fast, reliable, and easy to use', 'Grows with you as your business scales'],
+  },
+  {
+    icon: Sparkles,
+    title: 'AI Automation',
+    description:
+      'Let AI handle the grunt work. From smart replies to automated reports, we embed AI into your workflows to save hours every week.',
+    features: ['Automate repetitive decisions and tasks', 'Get insights from your data instantly', 'AI tools your team will actually use'],
   },
 ]
 
