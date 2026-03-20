@@ -30,8 +30,8 @@ export function Navbar() {
       href: '#custom',
     },
     {
-      name: 'Free Audit',
-      href: '#audit',
+      name: 'Book a Demo',
+      href: '#demo',
     },
   ]
 
