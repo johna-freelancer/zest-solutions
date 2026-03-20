@@ -93,18 +93,11 @@ export function Footer() {
           <motion.div variants={itemVariants}>
             <h4 className="text-white font-semibold mb-4">Products</h4>
             <ul className="space-y-2 text-sm">
-              {[
-                'Intelligent POS',
-                'Costing Manager',
-                'Inventory Health',
-                'API Documentation',
-              ].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-zinc-400 hover:text-white transition-colors">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="#suite" className="text-zinc-400 hover:text-white transition-colors">
+                  Zest Suite
+                </a>
+              </li>
             </ul>
           </motion.div>
 
@@ -129,10 +122,6 @@ export function Footer() {
           <p className="text-sm text-zinc-500">
             (c) {new Date().getFullYear()} Zest Solutions. All rights reserved.
           </p>
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-dark-secondary border border-border">
-            <div className="w-2 h-2 rounded-full bg-zest animate-pulse" />
-            <span className="text-xs font-medium text-zinc-300">Deployed on GitHub Pages</span>
-          </div>
         </motion.div>
       </div>
     </motion.footer>
