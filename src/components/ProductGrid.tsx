@@ -7,21 +7,23 @@ const rawGalleryImages = import.meta.glob('../assets/gallery/zest_suite/**/*.{pn
   import: 'default',
 }) as Record<string, string>
 
-const galleryImages = Object.entries(rawGalleryImages)
+const galleryImagesByFeature = Object.entries(rawGalleryImages)
   .sort(([a], [b]) => a.localeCompare(b))
-  .map(([path, src]) => {
-    const fileName = path.split('/').pop() || 'Screenshot'
-
-    return {
-      src,
-      alt: `Zest Suite screenshot ${fileName}`,
-    }
-  })
+  .reduce<Record<string, { src: string; alt: string }[]>>((acc, [path, src]) => {
+    const parts = path.split('/')
+    // subfolder is one level above the filename, e.g. "costing_manager"
+    const featureKey = parts[parts.length - 2] ?? 'other'
+    const fileName = parts[parts.length - 1] || 'Screenshot'
+    if (!acc[featureKey]) acc[featureKey] = []
+    acc[featureKey].push({ src, alt: `${featureKey} screenshot ${fileName}` })
+    return acc
+  }, {})
 
 const features = [
   {
     icon: ShoppingCart,
     title: 'Intelligent POS',
+    galleryKey: 'pos',
     description:
       'Lightning-fast point of sale system designed for modern retail and hospitality. Works offline and syncs instantly.',
     color: 'from-sky-500/20 to-transparent',
@@ -30,6 +32,7 @@ const features = [
   {
     icon: PieChart,
     title: 'Precision Costing Manager',
+    galleryKey: 'costing_manager',
     description:
       'Track recipe margins down to the cent. Automatically update costs based on supplier invoices and market fluctuations.',
     color: 'from-zest/20 to-transparent',
@@ -38,6 +41,7 @@ const features = [
   {
     icon: Activity,
     title: 'Inventory Health',
+    galleryKey: 'inventory_health',
     description:
       'Predictive alerts for low stock, expiring goods, and dead inventory. Never miss a sale or waste product again.',
     color: 'from-cyan-500/20 to-transparent',
@@ -47,13 +51,15 @@ const features = [
 
 export function ProductGrid() {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [activeFeatureKey, setActiveFeatureKey] = useState<string | null>(null)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
 
-  const hasGallery = galleryImages.length > 0
-  const activeImage = useMemo(
-    () => galleryImages[activeImageIndex] || galleryImages[0],
-    [activeImageIndex],
+  const currentImages = useMemo(
+    () => (activeFeatureKey ? galleryImagesByFeature[activeFeatureKey] ?? [] : []),
+    [activeFeatureKey],
   )
+  const hasGallery = currentImages.length > 0
+  const activeImage = currentImages[activeImageIndex] ?? currentImages[0]
 
   useEffect(() => {
     if (!isGalleryOpen) {
@@ -66,11 +72,11 @@ export function ProductGrid() {
       }
 
       if (event.key === 'ArrowRight' && hasGallery) {
-        setActiveImageIndex((current) => (current + 1) % galleryImages.length)
+        setActiveImageIndex((current) => (current + 1) % currentImages.length)
       }
 
       if (event.key === 'ArrowLeft' && hasGallery) {
-        setActiveImageIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length)
+        setActiveImageIndex((current) => (current - 1 + currentImages.length) % currentImages.length)
       }
     }
 
@@ -79,23 +85,22 @@ export function ProductGrid() {
     return () => {
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [hasGallery, isGalleryOpen])
+  }, [hasGallery, isGalleryOpen, currentImages.length])
 
-  const openGallery = (index: number) => {
-    if (!hasGallery) {
-      return
-    }
-
-    setActiveImageIndex(index % galleryImages.length)
+  const openGallery = (galleryKey: string) => {
+    const images = galleryImagesByFeature[galleryKey] ?? []
+    if (images.length === 0) return
+    setActiveFeatureKey(galleryKey)
+    setActiveImageIndex(0)
     setIsGalleryOpen(true)
   }
 
   const showPrevious = () => {
-    setActiveImageIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length)
+    setActiveImageIndex((current) => (current - 1 + currentImages.length) % currentImages.length)
   }
 
   const showNext = () => {
-    setActiveImageIndex((current) => (current + 1) % galleryImages.length)
+    setActiveImageIndex((current) => (current + 1) % currentImages.length)
   }
 
   return (
@@ -155,8 +160,9 @@ export function ProductGrid() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => openGallery(index)}
-                  className="relative z-10 mt-auto flex items-center text-sm font-semibold text-zest group/link cursor-pointer"
+                  onClick={() => openGallery(feature.galleryKey)}
+                  disabled={!galleryImagesByFeature[feature.galleryKey]?.length}
+                  className="relative z-10 mt-auto flex items-center text-sm font-semibold text-zest group/link cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   View Gallery
                   <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover/link:translate-x-1" />
@@ -196,7 +202,7 @@ export function ProductGrid() {
                     className="max-h-full max-w-full object-contain"
                   />
 
-                  {galleryImages.length > 1 && (
+                  {currentImages.length > 1 && (
                     <>
                       <button
                         type="button"
@@ -219,7 +225,7 @@ export function ProductGrid() {
                 </div>
 
                 <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
-                  {galleryImages.map((image, imageIndex) => (
+                  {currentImages.map((image, imageIndex) => (
                     <button
                       key={image.src}
                       type="button"
