@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { PieChart, Activity, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ShoppingCart, PieChart, Activity, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const rawGalleryImages = import.meta.glob('../assets/gallery/zest_suite/**/*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -20,6 +20,15 @@ const galleryImagesByFeature = Object.entries(rawGalleryImages)
   }, {})
 
 const features = [
+  {
+    icon: ShoppingCart,
+    title: 'Intelligent POS',
+    galleryKey: 'pos',
+    description:
+      'Lightning-fast point of sale system designed for modern retail and hospitality. Works offline and syncs instantly.',
+    color: 'from-sky-500/20 to-transparent',
+    iconColor: 'text-sky-400',
+  },
   {
     icon: PieChart,
     title: 'Precision Costing Manager',
@@ -111,7 +120,7 @@ export function ProductGrid() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}
