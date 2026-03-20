@@ -106,7 +106,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <motion.a
-              href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
+              href="#demo"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group relative overflow-hidden w-full sm:w-auto px-8 py-4 text-base font-semibold bg-zest text-black rounded-lg hover:bg-zest-hover transition-colors shadow-[0_0_20px_rgba(20,184,166,0.25)] flex items-center justify-center gap-2"

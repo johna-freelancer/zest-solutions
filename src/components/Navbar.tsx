@@ -87,7 +87,7 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center">
             <motion.a
-              href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
+              href="#demo"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-4 py-2 text-sm font-semibold bg-zest text-black rounded-md hover:bg-zest-hover transition-colors shadow-[0_0_15px_rgba(20,184,166,0.2)]"
@@ -139,8 +139,9 @@ export function Navbar() {
                 </a>
               ))}
               <a
-                href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
+                href="#demo"
                 className="block w-full mt-4 px-4 py-2 text-sm font-semibold bg-zest text-black rounded-md hover:bg-zest-hover transition-colors text-center"
+                onClick={() => setIsOpen(false)}
               >
                 Book a Demo
               </a>
