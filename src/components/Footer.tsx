@@ -57,7 +57,17 @@ export function Footer() {
             </div>
             <p className="text-zinc-400 max-w-sm mb-6">
               Engineering modern management systems and bespoke software solutions
-              for businesses that demand scale and precision.
+              for businesses that demand scale and precision. Book a demo and
+              avail a 7-day free trial.
+            </p>
+            <p className="text-sm text-zinc-300 mb-6">
+              Contact: 
+              <a
+                href="mailto:demo@zestsolutions.pro"
+                className="text-zest hover:text-zest-hover transition-colors"
+              >
+                demo@zestsolutions.pro
+              </a>
             </p>
             <div className="flex items-center gap-4">
               {[Twitter, Linkedin, Github].map((Icon, i) => (

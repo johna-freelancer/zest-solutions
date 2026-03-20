@@ -75,7 +75,7 @@ export function Hero() {
               <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0_340deg,var(--zest)_360deg)] animate-gradient-rotate" />
               <div className="relative inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dark-primary text-zest text-sm font-medium">
                 <span className="flex h-2 w-2 rounded-full bg-zest animate-pulse" />
-                Zest Suite 2.0 is now live
+                Book a live demo with our team
                 <ChevronRight className="w-4 h-4" />
               </div>
             </div>
@@ -97,26 +97,29 @@ export function Hero() {
             className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Empower your business with our modern management systems and bespoke
-            software solutions. Built for speed, precision, and scale.
+            software solutions. Built for speed, precision, and scale. Start with a
+            7-day free trial and see the full Zest Suite in action.
           </motion.p>
 
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <motion.button
+            <motion.a
+              href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="group relative overflow-hidden w-full sm:w-auto px-8 py-4 text-base font-semibold bg-zest text-black rounded-lg hover:bg-zest-hover transition-colors shadow-[0_0_20px_rgba(20,184,166,0.25)] flex items-center justify-center gap-2"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Request a Quotation
+                Book a Demo
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </span>
               <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            </motion.button>
+            </motion.a>
 
-            <motion.button
+            <motion.a
+              href="mailto:demo@zestsolutions.pro?subject=7-Day%20Free%20Trial"
               whileHover={{
                 scale: 1.02,
                 backgroundColor: 'rgba(255,255,255,0.05)',
@@ -124,8 +127,8 @@ export function Hero() {
               whileTap={{ scale: 0.98 }}
               className="w-full sm:w-auto px-8 py-4 text-base font-semibold bg-dark-secondary text-white border border-border rounded-lg transition-colors flex items-center justify-center"
             >
-              Explore The Suite
-            </motion.button>
+              Start 7-Day Free Trial
+            </motion.a>
           </motion.div>
         </motion.div>
       </div>

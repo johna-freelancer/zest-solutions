@@ -1,5 +1,22 @@
-import { motion } from 'framer-motion'
-import { ShoppingCart, PieChart, Activity, ArrowRight } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ShoppingCart, PieChart, Activity, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+
+const rawGalleryImages = import.meta.glob('../assets/gallery/zest_suite/**/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
+const galleryImages = Object.entries(rawGalleryImages)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, src]) => {
+    const fileName = path.split('/').pop() || 'Screenshot'
+
+    return {
+      src,
+      alt: `Zest Suite screenshot ${fileName}`,
+    }
+  })
 
 const features = [
   {
@@ -29,6 +46,58 @@ const features = [
 ]
 
 export function ProductGrid() {
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
+
+  const hasGallery = galleryImages.length > 0
+  const activeImage = useMemo(
+    () => galleryImages[activeImageIndex] || galleryImages[0],
+    [activeImageIndex],
+  )
+
+  useEffect(() => {
+    if (!isGalleryOpen) {
+      return
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsGalleryOpen(false)
+      }
+
+      if (event.key === 'ArrowRight' && hasGallery) {
+        setActiveImageIndex((current) => (current + 1) % galleryImages.length)
+      }
+
+      if (event.key === 'ArrowLeft' && hasGallery) {
+        setActiveImageIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [hasGallery, isGalleryOpen])
+
+  const openGallery = (index: number) => {
+    if (!hasGallery) {
+      return
+    }
+
+    setActiveImageIndex(index % galleryImages.length)
+    setIsGalleryOpen(true)
+  }
+
+  const showPrevious = () => {
+    setActiveImageIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length)
+  }
+
+  const showNext = () => {
+    setActiveImageIndex((current) => (current + 1) % galleryImages.length)
+  }
+
   return (
     <section id="suite" className="py-24 bg-dark-secondary relative border-y border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,14 +153,90 @@ export function ProductGrid() {
                   <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
                   <p className="text-zinc-400 leading-relaxed mb-6">{feature.description}</p>
                 </div>
-                <div className="relative z-10 mt-auto flex items-center text-sm font-semibold text-zest group/link cursor-pointer">
-                  Learn more
+                <button
+                  type="button"
+                  onClick={() => openGallery(index)}
+                  className="relative z-10 mt-auto flex items-center text-sm font-semibold text-zest group/link cursor-pointer"
+                >
+                  View Gallery
                   <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover/link:translate-x-1" />
-                </div>
+                </button>
               </div>
             </motion.div>
           ))}
         </div>
+
+        <AnimatePresence>
+          {isGalleryOpen && activeImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm p-4 md:p-8"
+            >
+              <div className="relative max-w-6xl mx-auto h-full flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-zinc-200 text-sm md:text-base">
+                    The Zest Suite Gallery
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setIsGalleryOpen(false)}
+                    className="p-2 rounded-md bg-dark-tertiary border border-border text-zinc-200 hover:text-white"
+                    aria-label="Close gallery"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="relative flex-1 min-h-0 flex items-center justify-center rounded-2xl border border-border bg-dark-tertiary/80 overflow-hidden">
+                  <img
+                    src={activeImage.src}
+                    alt={activeImage.alt}
+                    className="max-h-full max-w-full object-contain"
+                  />
+
+                  {galleryImages.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={showPrevious}
+                        className="absolute left-3 md:left-4 p-2 md:p-3 rounded-full bg-black/40 border border-white/20 text-white hover:bg-black/60"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={showNext}
+                        className="absolute right-3 md:right-4 p-2 md:p-3 rounded-full bg-black/40 border border-white/20 text-white hover:bg-black/60"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </>
+                  )}
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
+                  {galleryImages.map((image, imageIndex) => (
+                    <button
+                      key={image.src}
+                      type="button"
+                      onClick={() => setActiveImageIndex(imageIndex)}
+                      className={`rounded-lg overflow-hidden border ${
+                        imageIndex === activeImageIndex ? 'border-zest' : 'border-border'
+                      }`}
+                      aria-label={`Open screenshot ${imageIndex + 1}`}
+                    >
+                      <img src={image.src} alt={image.alt} className="w-full h-16 md:h-20 object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   )

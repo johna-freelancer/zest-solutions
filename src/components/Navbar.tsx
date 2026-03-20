@@ -86,13 +86,14 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center">
-            <motion.button
+            <motion.a
+              href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-4 py-2 text-sm font-semibold bg-zest text-black rounded-md hover:bg-zest-hover transition-colors shadow-[0_0_15px_rgba(20,184,166,0.2)]"
             >
-              Request Quotation
-            </motion.button>
+              Book a Demo
+            </motion.a>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -137,9 +138,12 @@ export function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <button className="w-full mt-4 px-4 py-2 text-sm font-semibold bg-zest text-black rounded-md hover:bg-zest-hover transition-colors">
-                Request Quotation
-              </button>
+              <a
+                href="mailto:demo@zestsolutions.pro?subject=Book%20a%20Demo"
+                className="block w-full mt-4 px-4 py-2 text-sm font-semibold bg-zest text-black rounded-md hover:bg-zest-hover transition-colors text-center"
+              >
+                Book a Demo
+              </a>
             </div>
           </motion.div>
         )}
