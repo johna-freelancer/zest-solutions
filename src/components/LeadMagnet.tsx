@@ -224,6 +224,19 @@ export function LeadMagnet() {
                     />
                   </div>
 
+                  <div>
+                    <label htmlFor="details" className="block text-sm font-medium text-zinc-400 mb-1.5">
+                      Details
+                    </label>
+                    <textarea
+                      id="details"
+                      name="details"
+                      rows={4}
+                      className="w-full bg-dark-secondary border border-border rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zest focus:ring-1 focus:ring-zest focus:shadow-[0_0_15px_rgba(20,184,166,0.15)] transition-all resize-y"
+                      placeholder="Tell us about your business needs and what you'd like to see in the demo."
+                    />
+                  </div>
+
                   {status === 'error' && (
                     <p className="text-red-400 text-sm text-center">Something went wrong. Please try again.</p>
                   )}
