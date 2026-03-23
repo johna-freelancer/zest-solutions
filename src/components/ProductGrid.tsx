@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ShoppingCart, PieChart, Activity, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ShoppingCart, PieChart, Activity, ArrowRight, X, ChevronLeft, ChevronRight, Award, Tag, Sparkles } from 'lucide-react'
 
 const rawGalleryImages = import.meta.glob('../assets/gallery/zest_suite/**/*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -46,6 +46,33 @@ const features = [
       'Predictive alerts for low stock, expiring goods, and dead inventory. Never miss a sale or waste product again.',
     color: 'from-cyan-500/20 to-transparent',
     iconColor: 'text-cyan-400',
+  },
+  {
+    icon: Award,
+    title: 'Customer Loyalty',
+    galleryKey: 'customer_loyalty',
+    description:
+      'Reward your regulars with points, tiers, and perks. Build lasting relationships that drive repeat visits and higher spend.',
+    color: 'from-violet-500/20 to-transparent',
+    iconColor: 'text-violet-400',
+  },
+  {
+    icon: Tag,
+    title: 'Promo Codes',
+    galleryKey: 'promo_codes',
+    description:
+      'Create, schedule, and track discount campaigns with ease. Apply percentage or fixed-value codes at the POS in seconds.',
+    color: 'from-amber-500/20 to-transparent',
+    iconColor: 'text-amber-400',
+  },
+  {
+    icon: Sparkles,
+    title: 'AI Insights',
+    galleryKey: 'ai_insights',
+    description:
+      'Harness machine learning to surface trends, forecast demand, and get actionable recommendations — all from your own data.',
+    color: 'from-pink-500/20 to-transparent',
+    iconColor: 'text-pink-400',
   },
 ]
 
@@ -120,7 +147,7 @@ export function ProductGrid() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}
